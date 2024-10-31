@@ -1,0 +1,46 @@
+#include <FastLED.h>
+
+#define NUM_LEDS 48  // 12 led's per strip attachment
+#define DATA_PIN 3
+
+CRGB leds[NUM_LEDS];
+
+int bells;
+
+void setup() {
+  FastLED.addLeds<WS2812, DATA_PIN>(leds, NUM_LEDS);  // GRB ordering is assumed
+}
+
+void loop() {
+
+  for (int i = 0; i < 3; i++) {
+    leds[i] = CRGB::Yellow;
+    FastLED.show();
+  }
+  delay(2000);
+
+  for (int i = 0; i < 9; i++) {
+    leds[i] = CRGB::Black;
+    FastLED.show();
+  }
+  for (int i = 3; i < 6; i++) {
+    leds[i] = CRGB::Yellow;
+    FastLED.show();
+  }
+  delay(2000);
+    for (int i = 0; i < 9; i++) {
+    leds[i] = CRGB::Black;
+    FastLED.show();
+  }
+    for (int i = 6; i < 9; i++) {
+    leds[i] = CRGB::Yellow;
+    FastLED.show();
+  }
+  delay(2000);
+    for (int i = 0; i < 10; i++) {
+    leds[i] = CRGB::Black;
+    FastLED.show();
+  }
+
+  
+  }
