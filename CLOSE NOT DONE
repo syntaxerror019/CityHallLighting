@@ -5,50 +5,73 @@
 
 CRGB leds[NUM_LEDS];
 
-int bow[24] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19, 20, 70, 71, 21, 11, 10};
-int Shell_out[24] = {22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 34, 36, 38, 50, 51, 56, 58, 59, 65, 66, 67, 68, 69};
-int Shell_in[3] = {43, 44, 64};
-int bell1[8] = {32, 33, 35, 37, 39, 40, 41, 42};
-int bell2[7] = {45, 46, 48, 49, 52, 53, 47};
-int bell3[7] = {62, 54, 55, 57, 60, 61, 63};
+int bow[24] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19, 20, 70, 71, 21, 11, 10 };
+int Shell_out[23] = { 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 34, 36, 38, 50, 51, 56, 58, 59, 65, 66, 67, 68, 69 };
+int Shell_in[3] = { 43, 44, 64 };
+int bell1[8] = { 32, 33, 35, 37, 39, 40, 41, 42 };
+int bell2[7] = { 45, 46, 48, 49, 52, 53, 47 };
+int bell3[7] = { 62, 54, 55, 57, 60, 61, 63 };
 
 void setup() {
   FastLED.addLeds<WS2812, DATA_PIN>(leds, NUM_LEDS);  // GRB ordering is assumed
+
+  //Shell Bridge
+  /*for (int i = 0; i < 4; i++){
+    leds[Shell_in[i]] = CRGB::Green;
+  }*/
+  //Bow loop
+  for (int i = 0; i < 25; i++) {
+    leds[bow[i]] = CRGB::Red;
+  }
+  //Shell Rim
+  for (int i = 0; i < 23; i++) {
+    leds[Shell_out[i]] = CRGB::Green;
+  }
+  FastLED.show();
 }
 
 void loop() {
 
-for (int i = 0; i < 25; i++){
-leds[bow[i]] = CRGB::Red;
-leds[Shell_out[i]] = CRGB::Green;
-leds[Shell_in[i]] = CRGB::Green;
-FastLED.show();
-}
 
-for (int i = 0; i<9; i++){
-  leds[bell1[i]] = CRGB::Yellow;
-  FastLED.show();
-}
-for (int i = 0; i < 8; i++){
-  leds[bell3[i]] = CRGB::Black;
-  FastLED.show();
-}
-  delay(1000);
 
-  for (int i = 0; i <9; i++){
-    leds[bell1[i]] = CRGB::Black;
+  for (int i = 0; i < 8; i++) {
+    leds[bell1[i]] = CRGB::Yellow;
+
+    leds[Shell_in[0]] = CRGB::Yellow;
     FastLED.show();
   }
- for (int i = 0; i<8; i++){
-  leds[bell2[i]] = CRGB::Yellow;
-  FastLED.show();
- }
- delay(1000);
-  for (int i = 0; i<8; i++){
-  leds[bell2[i]] = CRGB::Black;
-  leds[bell3[i]] = CRGB::Yellow;
-  FastLED.show();
+  for (int i = 0; i < 7; i++) {
+    leds[bell2[i]] = CRGB::Black;
+    leds[Shell_in[1]] = CRGB::Black;
+    FastLED.show();
   }
-delay(1000);
+  delay(1000);
 
+  for (int i = 0; i < 8; i++) {
+    leds[bell1[i]] = CRGB::Black;
+    leds[Shell_in[0]] = CRGB::Black;
   }
+  for (int i = 0; i < 7; i++) {
+    leds[bell2[i]] = CRGB::Yellow;
+    leds[Shell_in[1]] = CRGB::Yellow;
+  }
+  FastLED.show();
+  delay(1000);
+  for (int i = 0; i < 7; i++) {
+    leds[bell2[i]] = CRGB::Black;
+    leds[Shell_in[1]] = CRGB::Black;
+    leds[bell3[i]] = CRGB::Yellow;
+    leds[Shell_in[2]] = CRGB::Yellow;
+    FastLED.show();
+  }
+  delay(1000);
+  for (int i = 0; i < 7; i++) {
+    leds[bell3[i]] = CRGB::Black;
+    leds[Shell_in[2]] = CRGB::Black;
+    leds[Shell_in[0]] = CRGB::Black;
+    leds[bell2[i]] = CRGB::Yellow;
+    leds[Shell_in[1]] = CRGB::Yellow;
+    FastLED.show();
+  }
+  delay(1000);
+}
