@@ -19,7 +19,7 @@ void setup() {
   FastLED.addLeds<WS2812, DATA_PIN>(leds, NUM_LEDS);  // GRB ordering is assumed
 
   //Bow Turns On
-  for (int i = 0; i < 25; i++) {
+  for (int i = 0; i < 24; i++) {
     leds[bow[i]] = CRGB::Red;
   }
   //Shell Turns On
